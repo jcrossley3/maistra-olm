@@ -114,10 +114,10 @@ data:
         customresourcedefinitions:
           owned:
           - name: installations.istio.openshift.com
-          version: v1
-          kind: Installation
-          displayName: Maistra Installation
-          description: CRD representing Maistra installation options
+            version: v1
+            kind: Installation
+            displayName: Maistra Installation
+            description: CRD representing Maistra installation options
           
   packages: |-
     - #! package-manifest: ./deploy/chart/catalog_resources/rh-operators/svcat.v0.1.34.clusterserviceversion.yaml
