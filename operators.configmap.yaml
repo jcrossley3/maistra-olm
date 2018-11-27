@@ -71,7 +71,6 @@ data:
                 - statefulsets
                 verbs:
                 - "*"
-            clusterPermissions:
             deployments:
             - name: istio-operator
               namespace: istio-operator
