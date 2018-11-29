@@ -17,8 +17,8 @@ data:
           plural: installations
           singular: installation
         scope: Namespaced
-        version: v1
-      
+        version: v1alpha1
+
   clusterServiceVersions: |-
     - apiVersion: operators.coreos.com/v1alpha1
       kind: ClusterServiceVersion
@@ -85,6 +85,7 @@ data:
                   metadata:
                     labels:
                       name: istio-operator
+                      brianolm:true
                   spec:
                      containers:
                         - name: istio-operator
@@ -108,15 +109,15 @@ data:
         customresourcedefinitions:
           owned:
           - name: installations.istio.openshift.com
-            version: v1
+            version: v1alpha1
             kind: Installation
             displayName: Maistra Installation
             description: CRD representing Maistra installation options
-          
+
   packages: |-
     - packageName: maistra
       channels:
       - name: alpha
         currentCSV: maistra.v0.5.0
-      
+
 
