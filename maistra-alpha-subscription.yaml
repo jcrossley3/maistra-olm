@@ -6,5 +6,4 @@ metadata:
 spec:
   channel: alpha
   name: maistra
-  source: rh-operators
-  installPlanApproval: Manual
+  source: maistra-operators

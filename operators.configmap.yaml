@@ -24,10 +24,9 @@ data:
       kind: ClusterServiceVersion
       metadata:
         name: maistra.v0.5.0
-        namespace: placeholder
       spec:
         displayName: Maistra
-        description: Maistra, otherwise known as OpenShift Service Mesh, is Red Hat's version of Istio.
+        description: "Maistra, otherwise known as OpenShift Service Mesh, is Red Hat's version of Istio."
         keywords: ['service mesh', 'istio']
         maintainers:
         - name: Red Hat
@@ -71,38 +70,50 @@ data:
                 - statefulsets
                 verbs:
                 - "*"
+            clusterPermissions:
+            - serviceAccountName: istio-operator
+              rules:
+              - apiGroups:
+                - '*'
+                resources:
+                - '*'
+                verbs:
+                - '*'
+              - nonResourceURLs:
+                - '*'
+                verbs:
+                - '*'
             deployments:
             - name: istio-operator
-              namespace: istio-operator
               spec:
                 replicas: 1
                 strategy:
                   type: RollingUpdate
                 selector:
                   matchLabels:
-                    name: istio-operator
+                    app: istio-operator
                 template:
                   metadata:
                     labels:
-                      name: istio-operator
-                      brianolm:true
+                      app: istio-operator
                   spec:
-                     containers:
-                        - name: istio-operator
-                          image: maistra/istio-operator-centos7:0.5.0
-                          ports:
-                          - containerPort: 60000
-                            name: metrics
-                          command:
-                          - istio-operator
-                          imagePullPolicy: Always
-                          env:
-                            - name: WATCH_NAMESPACE
-                              valueFrom:
-                                fieldRef:
-                                  fieldPath: metadata.namespace
-                            - name: OPERATOR_NAME
-                              value: "istio-operator"
+                    containers:
+                    - name: istio-operator
+                      image: maistra/istio-operator-centos7:0.5.0
+                      ports:
+                      - containerPort: 60000
+                        name: metrics
+                      command:
+                      - istio-operator
+                      imagePullPolicy: Always
+                      env:
+                      - name: WATCH_NAMESPACE
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.namespace
+                      - name: OPERATOR_NAME
+                        value: "istio-operator"
+                    serviceAccountName: istio-operator
         maturity: alpha
         version: 0.5.0
         apiservicedefinitions:
@@ -119,5 +130,3 @@ data:
       channels:
       - name: alpha
         currentCSV: maistra.v0.5.0
-
-
